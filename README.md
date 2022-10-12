@@ -24,3 +24,16 @@ The script will use TXT-records to find and download another script, execute it 
 
 ### Example output from Demo C2 Client
 ![Example Output](./demo-c2-client-output.png?raw=true)
+
+
+### Example of incoming DNS-queries from DNSChef
+
+[DNSChef](https://github.com/iphelix/dnschef) can be used for a lot of fun DNS-stuff but in this example just to showcase the DNS-queries going out.
+
+You can change the DNS-settings on your client or just use the parameter ***$demoC2DnsServer*** and point it to your DNSChef
+
+```
+$demoC2DnsServer = "192.168.112.128"
+```
+
+![Example Output](./demo-c2-client-dnschef.png?raw=true)

