@@ -3,7 +3,7 @@
 )
 
 # DNS Lookup
-$dnsLookup = Resolve-DnsName $dnsName -Type TXT -Server "ns1.simply.com"
+$dnsLookup = Resolve-DnsName $dnsName -Type TXT
 Write-Host "TXT Strings Found:"
 $dnsLookup.Strings | ForEach-Object {
     Write-Host "   $($_)"
