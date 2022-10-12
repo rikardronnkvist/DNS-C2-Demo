@@ -2,8 +2,11 @@
     $dnsName = "c2demo.ronnkvist.nu"
 )
 
+Write-Host "Using DNS TXT-records from: $($dnsName)"
+Write-Host ""
+
 # DNS Lookup
-$dnsLookup = Resolve-DnsName $dnsName -Type TXT
+$dnsLookup = Resolve-DnsName $dnsName -Type TXT -Server "ns1.simply.com"
 Write-Host "TXT Strings Found:"
 $dnsLookup.Strings | ForEach-Object {
     Write-Host "   $($_)"
