@@ -21,3 +21,6 @@ c2demo.ronnkvist.nu. 3600 IN TXT "cmlybzswO1dyaXRlO1RpbWUgdG8gZG8gc29tZSBDMi1zdH
 Then you have the script ***demo-c2-client.ps1*** that you can run on a Windows client with Powershell and access to a DNS.
 
 The script will use TXT-records to find and download another script, execute it and show how a simple DNS-query would send out the information gathered.
+
+### Example output from Demo C2 Client
+![Example Output](./demo-c2-client-output.png?raw=true)
