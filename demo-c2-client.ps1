@@ -3,12 +3,8 @@
     [string] $demoC2DnsServer
 )
 
-Write-Host "Using DNS TXT-records from: $($dnsName)"
-Write-Host ""
-
 # DNS Lookup
-
-
+Write-Host "Using DNS TXT-records from: $($dnsName)"
 if ($demoC2DnsServer) {
     Write-Host "  DNS-Server: $($demoC2DnsServer)"
     $dnsLookup = Resolve-DnsName $dnsName -Type TXT -Server $demoC2DnsServer
@@ -16,6 +12,7 @@ if ($demoC2DnsServer) {
     $dnsLookup = Resolve-DnsName $dnsName -Type TXT
 }
 
+Write-Host ""
 Write-Host "TXT Strings Found:"
 $dnsLookup.Strings | ForEach-Object {
     Write-Host "   $($_)"
