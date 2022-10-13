@@ -28,7 +28,7 @@ The script will use TXT-records to find and download another script, execute it 
 
 ### Showing C2 traffic using DNS-queries
 
-[DNSChef](https://github.com/iphelix/dnschef) can be used for a lot of fun DNS-stuff but in this example just to showcase the DNS-queries going out.
+[DNSChef](https://github.com/iphelix/dnschef) can be used for a lot of fun DNS-stuff but in this example just to showcase the DNS-queries used as C2 traffic.
 
 You can change the DNS-settings on your client or just use the parameter ***$demoC2DnsServer*** and point it to your DNSChef
 
@@ -41,6 +41,6 @@ You can change the DNS-settings on your client or just use the parameter ***$dem
 
 ### Showing outgoing HTTP-post
 
-A [Small Python http server](https://gist.github.com/mdonkers/63e115cc0c79b4f6b8b3a6b797e485c7) can be used to see the HTTP-traffic
+A [small Python http server](https://gist.github.com/mdonkers/63e115cc0c79b4f6b8b3a6b797e485c7) can be used to see the HTTP-traffic
 
 ![Example Output](./demo-c2-client-webserver.png?raw=true)
